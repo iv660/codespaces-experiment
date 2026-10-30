@@ -47,5 +47,6 @@
   // Переменные окружения
   "remoteEnv": {
     "OLLAMA_HOST": "0.0.0.0:11434"
-  }
+  },
+  "postCreateCommand": "bash .devcontainer/init-ollama.sh && npm install"
 }
