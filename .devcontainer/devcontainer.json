@@ -1,0 +1,51 @@
+{
+  "name": "Node.js + Vue + Ollama Dev",
+  "image": "mcr.microsoft.com/devcontainers/universal:latest",
+  
+  // Указываем пользовательский Dockerfile
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  // Экспонируем необходимые порты
+  "forwardPorts": [3000, 5173, 11434],
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "label": "Vue Dev Server",
+      "onAutoForward": "notify"
+    },
+    "11434": {
+      "label": "Ollama API",
+      "onAutoForward": "silent"
+    }
+  },
+
+  // Команды, которые выполнятся при создании контейнера
+  "postCreateCommand": "npm install && ollama pull mistral",
+
+  // Расширения VS Code для Codespaces
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Continue.continue",
+        "Vue.volar",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.makefile-tools"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
+    }
+  },
+
+  // Переменные окружения
+  "remoteEnv": {
+    "OLLAMA_HOST": "0.0.0.0:11434"
+  }
+}
